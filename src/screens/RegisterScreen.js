@@ -70,31 +70,33 @@ const RegisterScreen = ({ navigation }) => {
           <Text style={styles.subtitle}>Crie sua conta</Text>
 
           <TextInput
-            placeholder="Nome completo"
+            label={<Text style={{color:'#FFF'}}>Nome completo</Text>}
             value={name}
             onChangeText={setName}
+            textColor='#fff'
             style={styles.input}
             mode="flat"
             underlineColor="transparent"
-            placeholderTextColor="#ffffffcc"
+            placeholderTextColor="#ffffff"
             theme={{
               colors: {
                 text: '#ffffff',
                 background: 'rgba(255,255,255,0.1)',
                 primary: '#ffffff',
-                placeholder: '#ffffffcc',
+                placeholder: '#ffffff',
               }
             }}
           />
 
           <TextInput
-            placeholder="Email"
+            label={<Text style={{color:'#FFF'}}>Email</Text>}
             value={email}
+            textColor='#fff'
             onChangeText={setEmail}
             style={styles.input}
             mode="flat"
             underlineColor="transparent"
-            placeholderTextColor="#ffffffcc"
+            placeholderTextColor="#ffffff"
             keyboardType="email-address"
             autoCapitalize="none"
             theme={{
@@ -102,45 +104,48 @@ const RegisterScreen = ({ navigation }) => {
                 text: '#ffffff',
                 background: 'rgba(255,255,255,0.1)',
                 primary: '#ffffff',
-                placeholder: '#ffffffcc',
+                placeholder: '#ffffff',
+                color: '#FFF'
               }
             }}
           />
 
           <TextInput
-            placeholder="Senha (mínimo 6 caracteres)"
+            label={<Text style={{color:'#FFF'}}>Senha (min 6 caracteres)</Text>}
             value={password}
+            textColor='#fff'
             onChangeText={setPassword}
             style={styles.input}
             mode="flat"
             underlineColor="transparent"
-            placeholderTextColor="#ffffffcc"
+            placeholderTextColor="#ffffff"
             secureTextEntry
             theme={{
               colors: {
                 text: '#ffffff',
-                background: 'rgba(255,255,255,0.1)',
+                background: 'rgba(231, 231, 231, 0.1)',
                 primary: '#ffffff',
-                placeholder: '#ffffffcc',
+                placeholder: '#ffffff',
               }
             }}
           />
 
           <TextInput
-            placeholder="Confirme sua senha"
+            label={<Text style={{color:'#FFF'}}>Confirmar senha</Text>}
             value={confirmPassword}
+            textColor='#fff'
             onChangeText={setConfirmPassword}
             style={styles.input}
             mode="flat"
             underlineColor="transparent"
-            placeholderTextColor="#ffffffcc"
+            placeholderTextColor="#ffffff"
             secureTextEntry
             theme={{
               colors: {
                 text: '#ffffff',
                 background: 'rgba(255,255,255,0.1)',
                 primary: '#ffffff',
-                placeholder: '#ffffffcc',
+                placeholder: '#ffffff',
               }
             }}
           />
@@ -216,6 +221,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     backgroundColor: 'rgba(255,255,255,0.1)',
+    color: '#FFF',
   },
   neonButton: {
     width: '100%',
@@ -232,7 +238,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   loginButtonText: {
-    color: '#ffffff',
+    color: '#ffff',
     fontWeight: 'bold',
     fontSize: 16,
   },
@@ -240,7 +246,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   registerText: {
-    color: '#ccc',
+    color: '#fff',
     fontSize: 14,
   },
   registerTextHighlight: {

@@ -51,8 +51,11 @@ const LoginScreen = ({ navigation }) => {
           {error ? <Text style={styles.error}>{error}</Text> : null}
 
           <TextInput
-            label="Email"
+            label={<Text style={{color:'#FFF'}}>Email</Text>}
             value={email}
+            placeholderTextColor='#FFF'
+            textColor='#fff'
+            outlineColor='#FFF'
             onChangeText={setEmail}
             style={styles.input}
             keyboardType="email-address"
@@ -64,14 +67,18 @@ const LoginScreen = ({ navigation }) => {
                 text: '#ffffff',
                 background: 'rgba(255,255,255,0.1)',
                 primary: '#ffffff',
-                placeholder: '#ffffffcc',
+                placeholder: '#ffffff',
+                color: '#FFF',
+                outline: '#FFF',
+                secondary: '#FFF'
               }
             }}
           />
 
           <TextInput
-            label="Senha"
+            label={<Text style={{color:'#FFF'}}>Senha</Text>}
             value={password}
+            textColor='#fff'
             onChangeText={setPassword}
             style={styles.input}
             secureTextEntry
@@ -82,7 +89,7 @@ const LoginScreen = ({ navigation }) => {
                 text: '#ffffff',
                 background: 'rgba(255,255,255,0.1)',
                 primary: '#ffffff',
-                placeholder: '#ffffffcc',
+                placeholder: '#fff',
               }
             }}
           />
@@ -158,6 +165,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     backgroundColor: 'rgba(255,255,255,0.1)',
+    color:'#FFF',
   },
   neonButton: {
     width: '100%',
