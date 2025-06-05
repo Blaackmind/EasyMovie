@@ -5,11 +5,14 @@ import {
   TouchableOpacity,
   Image,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  SafeAreaView,
+  ScrollView
 } from 'react-native';
 import { TextInput, Text, Snackbar } from 'react-native-paper';
 import { AuthContext } from '../context/AuthContext';
 import { LinearGradient } from 'expo-linear-gradient';
+import { responsiveHeight as hp, responsiveWidth as wp } from 'react-native-responsive-dimensions';
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -51,129 +54,136 @@ const RegisterScreen = ({ navigation }) => {
       colors={['#000000', '#0F2027', '#2C5364']}
       style={styles.gradient}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        <View style={styles.topSection}>
-          <Image
-            source={require('../assets/logosolo.png')}
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </View>
-
-        <View style={styles.middleSection}>
-          <Text style={styles.logo}>
-            Easy<Text style={styles.logoHighlight}>Movie</Text>
-          </Text>
-          <Text style={styles.subtitle}>Crie sua conta</Text>
-
-          <TextInput
-            label={<Text style={{color:'#FFF'}}>Nome completo</Text>}
-            value={name}
-            onChangeText={setName}
-            textColor='#fff'
-            style={styles.input}
-            mode="flat"
-            underlineColor="transparent"
-            placeholderTextColor="#ffffff"
-            theme={{
-              colors: {
-                text: '#ffffff',
-                background: 'rgba(255,255,255,0.1)',
-                primary: '#ffffff',
-                placeholder: '#ffffff',
-              }
-            }}
-          />
-
-          <TextInput
-            label={<Text style={{color:'#FFF'}}>Email</Text>}
-            value={email}
-            textColor='#fff'
-            onChangeText={setEmail}
-            style={styles.input}
-            mode="flat"
-            underlineColor="transparent"
-            placeholderTextColor="#ffffff"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            theme={{
-              colors: {
-                text: '#ffffff',
-                background: 'rgba(255,255,255,0.1)',
-                primary: '#ffffff',
-                placeholder: '#ffffff',
-                color: '#FFF'
-              }
-            }}
-          />
-
-          <TextInput
-            label={<Text style={{color:'#FFF'}}>Senha (min 6 caracteres)</Text>}
-            value={password}
-            textColor='#fff'
-            onChangeText={setPassword}
-            style={styles.input}
-            mode="flat"
-            underlineColor="transparent"
-            placeholderTextColor="#ffffff"
-            secureTextEntry
-            theme={{
-              colors: {
-                text: '#ffffff',
-                background: 'rgba(231, 231, 231, 0.1)',
-                primary: '#ffffff',
-                placeholder: '#ffffff',
-              }
-            }}
-          />
-
-          <TextInput
-            label={<Text style={{color:'#FFF'}}>Confirmar senha</Text>}
-            value={confirmPassword}
-            textColor='#fff'
-            onChangeText={setConfirmPassword}
-            style={styles.input}
-            mode="flat"
-            underlineColor="transparent"
-            placeholderTextColor="#ffffff"
-            secureTextEntry
-            theme={{
-              colors: {
-                text: '#ffffff',
-                background: 'rgba(255,255,255,0.1)',
-                primary: '#ffffff',
-                placeholder: '#ffffff',
-              }
-            }}
-          />
-
-          <TouchableOpacity style={styles.neonButton} onPress={handleRegister}>
-            <Text style={styles.loginButtonText}>Registrar</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Login')}
-            style={styles.registerLink}
-          >
-            <Text style={styles.registerText}>
-              Já tem uma conta?{' '}
-              <Text style={styles.registerTextHighlight}>Faça login</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <Snackbar
-          visible={visible}
-          onDismiss={() => setVisible(false)}
-          duration={3000}
-          style={styles.snackbar}
+      <SafeAreaView style={{flex: 1}}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.container}
         >
-          {error}
-        </Snackbar>
-      </KeyboardAvoidingView>
+          <ScrollView
+            contentContainerStyle={{flexGrow: 1}}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.topSection}>
+              <Image
+                source={require('../assets/logosolo.png')}
+                style={styles.image}
+                resizeMode="contain"
+              />
+            </View>
+
+            <View style={styles.middleSection}>
+              <Text style={styles.logo}>
+                Easy<Text style={styles.logoHighlight}>Movie</Text>
+              </Text>
+              <Text style={styles.subtitle}>Crie sua conta</Text>
+
+              <TextInput
+                label={<Text style={{color:'#FFF'}}>Nome completo</Text>}
+                value={name}
+                onChangeText={setName}
+                textColor='#fff'
+                style={styles.input}
+                mode="flat"
+                underlineColor="transparent"
+                placeholderTextColor="#ffffff"
+                theme={{
+                  colors: {
+                    text: '#ffffff',
+                    background: 'rgba(255,255,255,0.1)',
+                    primary: '#ffffff',
+                    placeholder: '#ffffff',
+                  }
+                }}
+              />
+
+              <TextInput
+                label={<Text style={{color:'#FFF'}}>Email</Text>}
+                value={email}
+                textColor='#fff'
+                onChangeText={setEmail}
+                style={styles.input}
+                mode="flat"
+                underlineColor="transparent"
+                placeholderTextColor="#ffffff"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                theme={{
+                  colors: {
+                    text: '#ffffff',
+                    background: 'rgba(255,255,255,0.1)',
+                    primary: '#ffffff',
+                    placeholder: '#ffffff',
+                    color: '#FFF'
+                  }
+                }}
+              />
+
+              <TextInput
+                label={<Text style={{color:'#FFF'}}>Senha (min 6 caracteres)</Text>}
+                value={password}
+                textColor='#fff'
+                onChangeText={setPassword}
+                style={styles.input}
+                mode="flat"
+                underlineColor="transparent"
+                placeholderTextColor="#ffffff"
+                secureTextEntry
+                theme={{
+                  colors: {
+                    text: '#ffffff',
+                    background: 'rgba(231, 231, 231, 0.1)',
+                    primary: '#ffffff',
+                    placeholder: '#ffffff',
+                  }
+                }}
+              />
+
+              <TextInput
+                label={<Text style={{color:'#FFF'}}>Confirmar senha</Text>}
+                value={confirmPassword}
+                textColor='#fff'
+                onChangeText={setConfirmPassword}
+                style={styles.input}
+                mode="flat"
+                underlineColor="transparent"
+                placeholderTextColor="#ffffff"
+                secureTextEntry
+                theme={{
+                  colors: {
+                    text: '#ffffff',
+                    background: 'rgba(255,255,255,0.1)',
+                    primary: '#ffffff',
+                    placeholder: '#ffffff',
+                  }
+                }}
+              />
+
+              <TouchableOpacity style={styles.neonButton} onPress={handleRegister}>
+                <Text style={styles.loginButtonText}>Registrar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Login')}
+                style={styles.registerLink}
+              >
+                <Text style={styles.registerText}>
+                  Já tem uma conta?{' '}
+                  <Text style={styles.registerTextHighlight}>Faça login</Text>
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <Snackbar
+              visible={visible}
+              onDismiss={() => setVisible(false)}
+              duration={3000}
+              style={styles.snackbar}
+            >
+              {error}
+            </Snackbar>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     </LinearGradient>
   );
 };
@@ -186,27 +196,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topSection: {
-    marginTop: 60,
+    marginTop: hp(0.2),
     alignItems: 'center',
     justifyContent: 'center',
   },
   image: {
-    width: 140,
-    height: 140,
-    marginBottom: 80,
+    width: wp(30),
+    height: hp(25),
+    marginBottom: hp(0.5),
   },
   middleSection: {
     flex: 1,
     paddingHorizontal: 30,
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: hp(0.5),
   },
   logo: {
     fontSize: 32,
     fontWeight: 'bold',
     color: '#ffffff',
     textAlign: 'center',
-    marginBottom: 5,
+    marginBottom: hp(0.5),
   },
   logoHighlight: {
     color: '#00ffff',
@@ -214,11 +224,11 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 14,
     color: '#ccc',
-    marginBottom: 30,
+    marginBottom: hp(0.9),
   },
   input: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: hp(2),
     borderRadius: 10,
     backgroundColor: 'rgba(255,255,255,0.1)',
     color: '#FFF',
@@ -230,7 +240,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#00ffff',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: hp(1.2),
     shadowColor: '#00ffff',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.9,
@@ -243,7 +253,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   registerLink: {
-    marginTop: 20,
+    marginTop: hp(3),
   },
   registerText: {
     color: '#fff',
