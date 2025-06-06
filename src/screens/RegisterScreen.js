@@ -21,6 +21,8 @@ const RegisterScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState('');
+  const [visibleMessage, setVisibleMessage] = useState(false);
   const { register } = useContext(AuthContext);
 
   const handleRegister = async () => {
@@ -46,6 +48,16 @@ const RegisterScreen = ({ navigation }) => {
     if (!success) {
       setError('Erro ao registrar. Tente novamente.');
       setVisible(true);
+    } else {
+       setMessage('Usuário registrado com sucesso!');
+       setVisibleMessage(true);
+          setTimeout(() => {
+          setVisible(false);
+          navigation.navigate('Login');
+      }, 2000);
+     
+      
+
     }
   };
 
@@ -181,6 +193,13 @@ const RegisterScreen = ({ navigation }) => {
             >
               {error}
             </Snackbar>
+            <Snackbar
+              visible={visibleMessage}
+              onDismiss={() => setVisibleMessage(false)}
+              duration={3000}
+              styles={styles.snackbarSuccess}>
+                {message}
+              </Snackbar>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -267,6 +286,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#e94560',
     margin: 20,
   },
+  snackbarSuccess: {
+    backgroundColor: '#3e9',
+    margin: 20,
+  }
 });
 
 export default RegisterScreen;

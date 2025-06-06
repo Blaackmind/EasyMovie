@@ -9,9 +9,10 @@ import {
   Dimensions,
   Image
 } from 'react-native';
-import { Card, Text, Button, Title, Paragraph } from 'react-native-paper';
+import { Card, Text, Button, Title, Paragraph, IconButton } from 'react-native-paper';
 import { getPopularMovies, getTopRatedMovies } from '../services/movieService';
 import { FavoritesContext } from '../context/FavoritesContext';
+import { AuthContext } from '../context/AuthContext';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.33;
@@ -21,6 +22,39 @@ const HomeScreen = ({ navigation }) => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
+  const { logout } = useContext(AuthContext);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: '#1a1a1a',
+        elevation: 0,
+        shadowOpacity: 0,
+      },
+      headerTintColor: '#fff',
+      headerRight: () => (
+        <IconButton
+          icon="logout"
+          color="#fff"
+          size={24}
+          onPress={handleLogout}
+          style={styles.logoutButton}
+        />
+      ),
+    });
+  }, [navigation]);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      });
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -163,6 +197,9 @@ const styles = StyleSheet.create({
   noImageText: {
     color: '#fff',
     fontSize: 12,
+  },
+  logoutButton: {
+    marginRight: 10,
   },
 });
 

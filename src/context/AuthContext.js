@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }) => {
         return false;
       }
 
-      
       const newUser = {
         id: Date.now().toString(),
         name,
@@ -45,10 +44,7 @@ export const AuthProvider = ({ children }) => {
         createdAt: new Date().toISOString()
       };
 
-      
       await AsyncStorage.setItem('users', JSON.stringify([...users, newUser]));
-      
-      
       await AsyncStorage.setItem('user', JSON.stringify(newUser));
       setUser(newUser);
       
@@ -82,10 +78,15 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      
       await AsyncStorage.removeItem('user');
+      
+     
       setUser(null);
+      return true;
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error('Erro ao fazer logout:', error);
+      return false;
     }
   };
 
