@@ -77,3 +77,4 @@ src/
 ## Licença
 
 Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes. 
+Desenvolvido por Amanda Kelory, Felipe Martins e Ana Panullo
