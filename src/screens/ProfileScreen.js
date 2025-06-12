@@ -1,11 +1,41 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { AuthContext } from '../context/AuthContext';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const ProfileScreen = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Sair da conta',
+      'Tem certeza que deseja sair?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'Sair',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await logout();
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+              });
+            } catch (error) {
+              console.error('Erro ao fazer logout:', error);
+              Alert.alert('Erro', 'Não foi possível fazer logout. Tente novamente.');
+            }
+          }
+        }
+      ],
+      { cancelable: true }
+    );
+  };
 
   return (
     <LinearGradient colors={['#000000', '#0F2027', '#2C5364']} style={styles.gradient}>
@@ -18,10 +48,7 @@ const ProfileScreen = ({ navigation }) => {
 
         <TouchableOpacity 
           style={styles.logoutButton}
-          onPress={() => {
-            logout();
-            navigation.navigate('Login');
-          }}
+          onPress={handleLogout}
         >
           <Text style={styles.logoutButtonText}>Sair da conta</Text>
         </TouchableOpacity>

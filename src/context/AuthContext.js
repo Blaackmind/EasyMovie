@@ -78,14 +78,61 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      
       await AsyncStorage.removeItem('user');
-      
-     
       setUser(null);
       return true;
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
+      return false;
+    }
+  };
+
+  const updateUserAvatar = async (avatarUrl) => {
+    try {
+      const usersData = await AsyncStorage.getItem('users');
+      const users = JSON.parse(usersData);
+      
+      // Atualiza o avatar no array de usuários
+      const updatedUsers = users.map(u => 
+        u.id === user.id ? { ...u, avatarUrl } : u
+      );
+      
+      // Atualiza o usuário atual
+      const updatedUser = { ...user, avatarUrl };
+      
+      // Salva as alterações
+      await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+      await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+      
+      setUser(updatedUser);
+      return true;
+    } catch (error) {
+      console.error('Erro ao atualizar avatar:', error);
+      return false;
+    }
+  };
+
+  const updateUserProfile = async ({ bio }) => {
+    try {
+      const usersData = await AsyncStorage.getItem('users');
+      const users = JSON.parse(usersData);
+      
+      // Atualiza a bio no array de usuários
+      const updatedUsers = users.map(u => 
+        u.id === user.id ? { ...u, bio } : u
+      );
+      
+      // Atualiza o usuário atual
+      const updatedUser = { ...user, bio };
+      
+      // Salva as alterações
+      await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+      await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+      
+      setUser(updatedUser);
+      return true;
+    } catch (error) {
+      console.error('Erro ao atualizar perfil:', error);
       return false;
     }
   };
@@ -96,7 +143,9 @@ export const AuthProvider = ({ children }) => {
       isLoading,
       register,
       login,
-      logout
+      logout,
+      updateUserAvatar,
+      updateUserProfile
     }}>
       {children}
     </AuthContext.Provider>
